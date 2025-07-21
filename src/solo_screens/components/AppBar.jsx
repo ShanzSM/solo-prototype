@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SOLOSideMenu from './SOLOSideMenu';
+import SoloSideMenu from './SoloSideMenu';
 
 export default function AppBar({
   title,
@@ -10,7 +10,7 @@ export default function AppBar({
   profile = {},
   logout = null,
   version = null,
-  sideMenuComponent: SideMenuComponent = SOLOSideMenu,
+  sideMenuComponent: SideMenuComponent = SoloSideMenu,
   onShowNotifications,
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
