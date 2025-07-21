@@ -1,0 +1,1 @@
+// This file will be replaced by a shared AppBar component in src/components/AppBar.jsx 

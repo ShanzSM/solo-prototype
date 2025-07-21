@@ -1,0 +1,1 @@
+// This file has been renamed to SoloHome.jsx. Please use that file instead. 
