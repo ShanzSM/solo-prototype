@@ -1,31 +1,29 @@
 import React from 'react';
+// Import relevant icons
+import home_m from '../../assets/side_menu_Icons/home_m.png';
+import wallet_m from '../../assets/side_menu_Icons/wallet_m.png';
+import transactions_m from '../../assets/side_menu_Icons/transactions_m.png';
+import gift_m from '../../assets/side_menu_Icons/gift_m.png';
+import deals_m from '../../assets/side_menu_Icons/deals_m.png';
+import directpay_m from '../../assets/side_menu_Icons/directpay_m.png';
+import billers_m from '../../assets/side_menu_Icons/billers_m.png';
+import reachus_m from '../../assets/side_menu_Icons/reachus_m.png';
+import sendmoney_m from '../../assets/side_menu_Icons/sendmoney_m.png';
 
-// Default sample data for TNX
-const defaultProfile = {
-  name: 'Thilina',
-  avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
-  actions: [
-    { label: 'Edit Profile', icon: '✏️', onClick: () => alert('Edit Profile') },
-    { label: 'Bank Settings', icon: '🏦', onClick: () => alert('Bank Settings') },
-  ],
+const menuIcons = {
+  'Home': home_m,
+  'Wallet': wallet_m,
+  'Transactions': transactions_m,
+  'Gifting': gift_m,
+  'Deals & Coupons': deals_m,
+  'Direct Pay': directpay_m,
+  'Billers': billers_m,
+  'Invite Friends': gift_m,
+  'Reach Us': reachus_m,
+  'Wallet_Second': sendmoney_m, // special key for second item
 };
-const defaultMenuItems = [
-  { label: 'Home', icon: '🏠', onClick: () => alert('Home') },
-  { label: 'Card & Icons', icon: '💳', onClick: () => alert('Card & Icons') },
-  { label: 'Transactions', icon: '📄', onClick: () => alert('Transactions') },
-  { label: 'Sample 01', icon: '⭐', onClick: () => alert('Sample 01') },
-  { label: 'Sample 02', icon: '🔔', onClick: () => alert('Sample 02') },
-  { label: 'Sample 03', icon: '📊', onClick: () => alert('Sample 03') },
-  { label: 'Sample 04', icon: '⚙️', onClick: () => alert('Sample 04') },
-];
-const defaultLogout = { label: 'Logout', icon: '🚪', onClick: () => alert('Logout') };
-const defaultVersion = 'Version 3.1.0';
 
 export default function TNXSideMenu({ open, onClose, profile, menuItems, logout, version }) {
-  const _profile = profile || defaultProfile;
-  const _menuItems = (menuItems && menuItems.length > 0) ? menuItems : defaultMenuItems;
-  const _logout = logout || defaultLogout;
-  const _version = version || defaultVersion;
   return (
     <>
       {/* Overlay */}
@@ -63,11 +61,11 @@ export default function TNXSideMenu({ open, onClose, profile, menuItems, logout,
         {/* Profile Section */}
         <div style={{ padding: '28px 24px 18px 24px', borderBottom: '1px solid #f0f0f0' }}>
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
-            <img src={_profile.avatar} alt="avatar" style={{ width: 54, height: 54, borderRadius: '50%', objectFit: 'cover', marginRight: 14 }} />
+            <img src={profile.avatar} alt="avatar" style={{ width: 54, height: 54, borderRadius: '50%', objectFit: 'cover', marginRight: 14 }} />
             <div>
-              <div style={{ fontWeight: 700, fontSize: 20 }}>{_profile.name}</div>
+              <div style={{ fontWeight: 700, fontSize: 20 }}>{profile.name}</div>
               <div style={{ display: 'flex', gap: 10, marginTop: 2 }}>
-                {_profile.actions && _profile.actions.map((action, idx) => (
+                {profile.actions && profile.actions.map((action, idx) => (
                   <span key={idx} style={{ fontSize: 13, color: '#888', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4 }} onClick={action.onClick}>
                     {action.icon} {action.label}
                   </span>
@@ -78,7 +76,7 @@ export default function TNXSideMenu({ open, onClose, profile, menuItems, logout,
         </div>
         {/* Menu Items */}
         <div style={{ padding: '18px 0 0 0', overflowY: 'auto' }}>
-          {_menuItems.map((item, idx) => (
+          {menuItems.map((item, idx) => (
             <div
               key={idx}
               onClick={() => { item.onClick && item.onClick(); onClose(); }}
@@ -87,7 +85,7 @@ export default function TNXSideMenu({ open, onClose, profile, menuItems, logout,
                 alignItems: 'center',
                 fontWeight: 600,
                 fontSize: 16,
-                color: '#0a2239',
+                color: '#1db954',
                 padding: '12px 28px',
                 cursor: 'pointer',
                 gap: 16,
@@ -96,16 +94,16 @@ export default function TNXSideMenu({ open, onClose, profile, menuItems, logout,
                 marginBottom: 2,
               }}
             >
-              <span style={{ fontSize: 20, width: 26, textAlign: 'center' }}>{item.icon}</span>
+              <img src={idx === 1 ? sendmoney_m : (menuIcons[item.label] || home_m)} alt={item.label} style={{ width: 26, height: 26, objectFit: 'contain' }} />
               {item.label}
             </div>
           ))}
         </div>
         {/* Logout and Version */}
         <div style={{ marginTop: 8, padding: '0 0 0 0', borderTop: '1px solid #f0f0f0' }}>
-          {_logout && (
+          {logout && (
             <div
-              onClick={() => { _logout.onClick && _logout.onClick(); onClose(); }}
+              onClick={() => { logout.onClick && logout.onClick(); onClose(); }}
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -118,12 +116,11 @@ export default function TNXSideMenu({ open, onClose, profile, menuItems, logout,
                 opacity: 0.85,
               }}
             >
-              <span style={{ fontSize: 20 }}>{_logout.icon}</span>
-              {_logout.label}
+              {logout.label}
             </div>
           )}
-          {_version && (
-            <div style={{ fontSize: 13, color: '#b0b8c1', padding: '0 28px', marginTop: 2 }}>{_version}</div>
+          {version && (
+            <div style={{ fontSize: 13, color: '#b0b8c1', padding: '0 28px', marginTop: 2 }}>{version}</div>
           )}
         </div>
       </div>

@@ -1,9 +1,9 @@
 import React from 'react';
-import home from '../../assets/home.png';
-import wallet from '../../assets/wallet.png';
+import home from '../../assets/navbar_images/home_b.png';
+import wallet from '../../assets/navbar_images/wallet_b.png';
 import qr from '../../assets/qr.png';
-import history from '../../assets/history.png';
-import windows from '../../assets/windows.png';
+import history from '../../assets/navbar_images/history_b.png';
+import switch_b from '../../assets/navbar_images/switch_b.png';
 
 export default function SoloNavBar({ onAppSwitcher }) {
   const navItems = [
@@ -11,7 +11,7 @@ export default function SoloNavBar({ onAppSwitcher }) {
     { icon: wallet, label: 'Wallet' },
     { icon: qr, label: 'QR', isQR: true },
     { icon: history, label: 'History' },
-    { icon: windows, label: 'App Switcher', isAppSwitcher: true },
+    { icon: switch_b, label: 'App Switcher', isAppSwitcher: true },
   ];
   return (
     <nav style={{

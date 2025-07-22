@@ -12,24 +12,31 @@ import cashtomobile from './assets/cashtomobile.png';
 import splitpay from './assets/splitpay.png';
 import gifting from './assets/gifting.png';
 import invitefriends from './assets/invitefriends.png';
-import windows from './assets/windows.png';
-import wallet from './assets/wallet.png';
-import history from './assets/history.png';
 import qr from './assets/qr.png';
-import home from './assets/home.png';
 import soloLogo from './assets/solo logo.png';
+import tnxLogo from './assets/tnx_logo.png';
+import app03 from './assets/APP 03.png';
+import app04 from './assets/APP 04.png';
+import app05 from './assets/APP 05.png';
+import app06 from './assets/APP 06.png';
 import SoloHome from './solo_screens/SoloHome.jsx';
 import TnxHomePage from './TnxBankScreen/TnxHomePage.jsx';
 import SoloNavBar from './solo_screens/components/SoloNavBar';
 import TnxNavBar from './TnxBankScreen/components/TnxNavBar';
 import NotificationPage from './components/NotificationPage';
+import App3HomeScreen from './app3_Screens/app3Home_Screen.jsx';
+import App4HomeScreen from './app4_Screens/App4Home_Screen.jsx';
+import App5HomeScreen from './app5_Screen/App5Home_screen.jsx';
+import App6HomeScreen from './app6_screen/App6Home_Screen.jsx';
 
 function BottomSheetAppSwitcher({ open, onClose, apps, onAppSelect }) {
   const appColors = {
     'Solo App': '#0052cc',
-    'TXN Banking': '#1db954',
-    'App3': '#8884ff',
-    'App4': '#ffb347',
+    'TNX Banking': '#1db954',
+    'App3': '#a259ff', // purple
+    'App4': '#e53935', // red
+    'App5': '#ff9800', // orange
+    'App6': '#00bcd4', // cyan
   };
   return (
     <>
@@ -71,7 +78,7 @@ function BottomSheetAppSwitcher({ open, onClose, apps, onAppSelect }) {
       >
         <div style={{ width: 40, height: 4, background: '#e0e0e0', borderRadius: 2, alignSelf: 'center', marginBottom: 18 }} />
         <div style={{ fontWeight: 700, fontSize: 18, marginBottom: 18, textAlign: 'center' }}>Switch App</div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18, justifyContent: 'center' }}>
           {apps.map((app, idx) => (
             <div
               key={idx}
@@ -79,32 +86,44 @@ function BottomSheetAppSwitcher({ open, onClose, apps, onAppSelect }) {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                background: app.disabled ? '#e0e0e0' : appColors[app.name] || '#f5f7fa',
+                justifyContent: 'center',
+                width: 110,
+                height: 140,
+                background: app.disabled ? appColors[app.name] : appColors[app.name] || '#f5f7fa',
                 borderRadius: 12,
                 padding: 12,
                 cursor: app.disabled ? 'not-allowed' : 'pointer',
-                boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
-                opacity: app.disabled ? 0.6 : 1,
+                boxShadow: app.disabled ? '0 0 0 3px #FFD600, 0 1px 8px rgba(0,0,0,0.10)' : '0 1px 4px rgba(0,0,0,0.04)',
+                opacity: 1,
                 pointerEvents: app.disabled ? 'none' : 'auto',
                 color: '#fff',
-                transition: 'background 0.2s',
+                transition: 'background 0.2s, box-shadow 0.2s',
+                filter: app.disabled ? 'brightness(1.10) saturate(1.1)' : 'none',
+                border: app.disabled ? '3px solid #FFD600' : 'none',
+                position: 'relative',
               }}
               onClick={() => !app.disabled && onAppSelect(app)}
+              title={!app.icon ? app.name : undefined}
             >
-              {app.name === 'TXN Banking' ? (
-                <span style={{
-                  color: '#fff',
-                  fontWeight: 'bold',
-                  fontSize: 20,
-                  letterSpacing: '2px',
-                  marginBottom: 8,
-                  textAlign: 'center',
-                  display: 'block',
-                }}>TXN Banking</span>
-              ) : (
-                <img src={app.icon} alt={app.name} style={{ width: 64, height: 64, objectFit: 'contain', marginBottom: 8, filter: app.disabled ? 'grayscale(1)' : 'none' }} />
+              {app.disabled && (
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  background: 'rgba(240,240,240,0.32)',
+                  borderRadius: 12,
+                  pointerEvents: 'none',
+                  zIndex: 1,
+                }} />
               )}
-              <span style={{ fontWeight: 600, fontSize: 14, marginBottom: 2, textAlign: 'center', width: '100%', display: 'block' }}>{app.name}</span>
+              {app.icon ? (
+                <img src={app.icon} alt={app.name} style={{ width: 64, height: 64, objectFit: 'contain', marginBottom: 8, filter: app.disabled ? 'none' : 'none', zIndex: 2 }} />
+              ) : (
+                <span style={{ fontSize: 32, fontWeight: 700, marginBottom: 8, zIndex: 2 }}>{app.name[0]}</span>
+              )}
+              {/* Removed label below icon */}
             </div>
           ))}
         </div>
@@ -121,10 +140,12 @@ function App() {
   const [showNotifications, setShowNotifications] = useState(false);
 
   const hnbApps = [
-    { icon: soloLogo, name: 'Solo App', desc: 'You are here' },
-    { icon: reactLogo, name: 'TXN Banking', desc: 'Main HNB banking app' },
-    { icon: reactLogo, name: 'App3', desc: 'QR Payments' },
-    { icon: reactLogo, name: 'App4', desc: 'Transaction history' },
+    { icon: soloLogo, name: 'Solo App' },
+    { icon: tnxLogo, name: 'TNX Banking' },
+    { icon: app03, name: 'App3' },
+    { icon: app04, name: 'App4' },
+    { icon: app05, name: 'App5' },
+    { icon: app06, name: 'App6' },
   ].map(app => ({ ...app, disabled: app.name === selectedApp }));
 
   // Map app name to overlay color (light version of app bar)
@@ -173,7 +194,11 @@ function App() {
               }}
             >
               {selectedApp === 'Solo App' && <SoloHome onShowNotifications={() => setShowNotifications(true)} />}
-              {selectedApp === 'TXN Banking' && <TnxHomePage onShowNotifications={() => setShowNotifications(true)} />}
+              {selectedApp === 'TNX Banking' && <TnxHomePage onShowNotifications={() => setShowNotifications(true)} />}
+              {selectedApp === 'App3' && <App3HomeScreen />}
+              {selectedApp === 'App4' && <App4HomeScreen />}
+              {selectedApp === 'App5' && <App5HomeScreen />}
+              {selectedApp === 'App6' && <App6HomeScreen />}
             </div>
             {/* Overlay for fade color */}
             <div
@@ -191,7 +216,7 @@ function App() {
               }}
             />
             {selectedApp === 'Solo App' && <SoloNavBar onAppSwitcher={() => setShowAppSwitcher(true)} />}
-            {selectedApp === 'TXN Banking' && <TnxNavBar onAppSwitcher={() => setShowAppSwitcher(true)} />}
+            {selectedApp === 'TNX Banking' && <TnxNavBar onAppSwitcher={() => setShowAppSwitcher(true)} />}
           </>
         )}
       </div>

@@ -1,13 +1,15 @@
 import React from 'react';
-import home from '../../assets/home.png';
-import windows from '../../assets/windows.png';
+import home from '../../assets/navbar_images/home_g.png';
+import wallet from '../../assets/navbar_images/wallet_g.png';
+import history from '../../assets/navbar_images/history_g.png';
+import switch_g from '../../assets/navbar_images/switch_g.png';
 
 export default function TnxNavBar({ onAppSwitcher }) {
   const navItems = [
     { icon: home, label: 'Dashboard' },
-    { icon: '��', label: 'Transfer', isEmoji: true },
-    { icon: '🧾', label: 'Pay Bill', isEmoji: true },
-    { icon: windows, label: 'App Switcher', isAppSwitcher: true },
+    { icon: wallet, label: 'Wallet' },
+    { icon: history, label: 'History' },
+    { icon: switch_g, label: 'App Switcher', isAppSwitcher: true },
   ];
   return (
     <nav style={{
@@ -29,12 +31,7 @@ export default function TnxNavBar({ onAppSwitcher }) {
           style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, fontSize: 22, color: '#1db954' }}
           onClick={item.isAppSwitcher ? onAppSwitcher : undefined}
         >
-          {item.isEmoji ? (
-            <span>{item.icon}</span>
-          ) : (
-            <img src={item.icon} alt={item.label} style={{ width: 28, height: 28, objectFit: 'contain' }} />
-          )}
-          <span style={{ fontSize: 12, color: '#222', marginTop: 2 }}>{item.label}</span>
+          <img src={item.icon} alt={item.label} style={{ width: 28, height: 28, objectFit: 'contain' }} />
         </div>
       ))}
     </nav>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AppBar from './components/AppBar';
+import SoloAppBar from './components/SoloAppBar';
 import SoloServiceGrid from './components/SoloServiceGrid';
 
 const slides = [
@@ -45,7 +45,7 @@ const SoloHome = ({ onShowNotifications }) => {
 
   return (
     <>
-      <AppBar
+      <SoloAppBar
         title="SOLO"
         color="#0052cc"
         bannerColor="#1565c0"

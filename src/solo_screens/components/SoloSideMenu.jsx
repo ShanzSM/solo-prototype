@@ -1,5 +1,29 @@
 import React from 'react';
 
+// Import relevant icons
+import home_m from '../../assets/side_menu_Icons/home_m.png';
+import wallet_m from '../../assets/side_menu_Icons/wallet_m.png';
+import transactions_m from '../../assets/side_menu_Icons/transactions_m.png';
+import gift_m from '../../assets/side_menu_Icons/gift_m.png';
+import deals_m from '../../assets/side_menu_Icons/deals_m.png';
+import directpay_m from '../../assets/side_menu_Icons/directpay_m.png';
+import billers_m from '../../assets/side_menu_Icons/billers_m.png';
+import reachus_m from '../../assets/side_menu_Icons/reachus_m.png';
+import sendmoney_m from '../../assets/side_menu_Icons/sendmoney_m.png';
+
+const menuIcons = {
+  'Home': home_m,
+  'Wallet': wallet_m,
+  'Transactions': transactions_m,
+  'Gifting': gift_m,
+  'Deals & Coupons': deals_m,
+  'SOLO Direct Pay': directpay_m,
+  'Billers': billers_m,
+  'Invite Friends': gift_m,
+  'Reach Us': reachus_m,
+  'Wallet_Second': sendmoney_m, // special key for second item
+};
+
 export default function SOLOSideMenu({ open, onClose, profile, menuItems, logout, version }) {
   return (
     <>
@@ -62,7 +86,7 @@ export default function SOLOSideMenu({ open, onClose, profile, menuItems, logout
                 alignItems: 'center',
                 fontWeight: 600,
                 fontSize: 16,
-                color: '#0a2239',
+                color: '#0052cc',
                 padding: '12px 28px',
                 cursor: 'pointer',
                 gap: 16,
@@ -71,7 +95,7 @@ export default function SOLOSideMenu({ open, onClose, profile, menuItems, logout
                 marginBottom: 2,
               }}
             >
-              <span style={{ fontSize: 20, width: 26, textAlign: 'center' }}>{item.icon}</span>
+              <img src={idx === 1 ? sendmoney_m : (menuIcons[item.label] || home_m)} alt={item.label} style={{ width: 26, height: 26, objectFit: 'contain' }} />
               {item.label}
             </div>
           ))}
@@ -93,7 +117,6 @@ export default function SOLOSideMenu({ open, onClose, profile, menuItems, logout
                 opacity: 0.85,
               }}
             >
-              <span style={{ fontSize: 20 }}>{logout.icon}</span>
               {logout.label}
             </div>
           )}

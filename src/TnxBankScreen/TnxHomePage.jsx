@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import AppBar from '../solo_screens/components/AppBar';
+import TnxAppBar from './components/TnxAppBar';
 import TNXSideMenu from './components/TNXSideMenu';
-import TnxBalanceCard from './components/TnxBalanceCard';
-import TnxQuickActions from './components/TnxQuickActions';
-import TnxRecentTransactions from './components/TnxRecentTransactions';
 
 const tnxProfile = {
   name: 'Thilina',
@@ -14,24 +11,37 @@ const tnxProfile = {
   ],
 };
 
+const tnxMenu = [
+  { label: 'Home', onClick: () => alert('Home') },
+  { label: 'Wallet', onClick: () => alert('Wallet') },
+  { label: 'Transactions', onClick: () => alert('Transactions') },
+  { label: 'Gifting', onClick: () => alert('Gifting') },
+  { label: 'Deals & Coupons', onClick: () => alert('Deals & Coupons') },
+  { label: 'Direct Pay', onClick: () => alert('Direct Pay') },
+  { label: 'Billers', onClick: () => alert('Billers') },
+  { label: 'Invite Friends', onClick: () => alert('Invite Friends') },
+  { label: 'Reach Us', onClick: () => alert('Reach Us') },
+];
+
+const tnxLogout = { label: 'Logout', onClick: () => alert('Logout') };
+const tnxVersion = 'Version 3.1.0';
+
 const TnxHomePage = ({ onShowNotifications }) => {
   return (
     <>
-      <AppBar
+      <TnxAppBar
         title="TNX Banking"
         color="#1db954"
         bannerColor="#13a84e"
-        menuItems={[]}
+        menuItems={tnxMenu}
         profile={tnxProfile}
-        logout={null}
-        version={null}
+        logout={tnxLogout}
+        version={tnxVersion}
         sideMenuComponent={TNXSideMenu}
         onShowNotifications={onShowNotifications}
       />
-      <div style={{ padding: '20px 16px 0 16px' }}>
-        <TnxBalanceCard />
-        <TnxQuickActions />
-        <TnxRecentTransactions />
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh', fontSize: 24, fontWeight: 600, color: '#1db954' }}>
+        Transaction Banking Landing page
       </div>
     </>
   );
